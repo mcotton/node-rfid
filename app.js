@@ -23,31 +23,7 @@ var app = express(),
     server = http.createServer(app),
     io = require('socket.io').listen(server);
 
-
-var badges = [
-        {
-            'name': 'Frank Sinatra',
-            'id':   '6A003E6686B4',
-        },
-        {
-            'name': 'Christopher Walken',
-            'id':   '6A003E6686B4'
-        }
-    ];
-
-var doors = [
-        {
-            'name': 'Front Door',
-            'can_open': ['6A003E6686B4', '6A003E6686B4'],
-            'state': 'closed'
-        },
-        {
-            'name': 'Back Door',
-            'can_open': ['6A003E6686B4'],
-            'state': 'closed'
-        } 
-    ];
-
+var config = require('./config.js');
 
 // all environments
 app.set('port', process.env.PORT || 3000);
@@ -82,10 +58,20 @@ serial.on('open', function() {
     serial_open = true;
     console.log('Opened serial port ', PORT);
     serial.on('data', function(data) {
-        console.log('Data: ', data);
-        io.sockets.emit('event', { 'scan': data })
+        // test if it looks like a badge 
+        if((/6A[A-z0-9]*/).test(data)) {
+            data = data.match(/6A[A-z0-9]*/)[0];
+            console.log('Data: ' + data + ' length: ' + data.length);
+            io.sockets.emit('event', 
+                config.badges.filter(function(item) { return (item.id == data) ? true : false; })
+            )
+        }
     });
 });
+
+function badgeNameByID(id) {
+    
+}
 
 // handle serial port closing
 serial.on('close', function() {
@@ -96,7 +82,7 @@ serial.on('close', function() {
 // real time stuff
 
 function emit_current_state(socket) {
-    io.sockets.emit('current_state', { 'doors': doors });
+    io.sockets.emit('current_state', { 'doors': config.doors });
 };
 
 io.sockets.on('connection', function(socket) { emit_current_state(socket) });

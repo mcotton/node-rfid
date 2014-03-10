@@ -20,9 +20,9 @@
     });
 
     socket.on('event', function(data) {
-        console.log(data)
+        console.log(data[0].name)
         var item = document.createElement('li');
-        item.textContent = data.scan;
+        item.textContent = data[0].name;
         document.getElementById('scan_history').appendChild(item);
     });
  
