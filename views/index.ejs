@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1>Easy Access Control</h1>
+    <p>RFID access control example integration with the Eagle Eye Networks API></p>
+    <p>Badge Scan History:
+        <ul id="scan_history"></ul>
+    </p>
+  </body>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+    var socket = io.connect('http://192.168.11.63:3000');
+
+    socket.on('current_state', function (data) {
+       console.log(data);
+    });
+
+    socket.on('event', function(data) {
+        console.log(data)
+        var item = document.createElement('li');
+        item.textContent = data.scan;
+        document.getElementById('scan_history').appendChild(item);
+    });
+ 
+</script>
+</html>
