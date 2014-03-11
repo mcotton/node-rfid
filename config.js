@@ -1,3 +1,13 @@
+var serialport = require('serialport');
+
+exports.serial = {
+  PORT: '',
+  serial_open: false,
+  serial_opts: { 'baudrate':   9600,
+                  'parser':     serialport.parsers.readline('\n') }
+
+}
+
 exports.badges = [
         {
             'name': 'Frank Sinatra',
