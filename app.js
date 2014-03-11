@@ -65,9 +65,7 @@ if(serial) {
           if((/6A[A-z0-9]*/).test(data)) {
               data = data.match(/6A[A-z0-9]*/)[0];
               console.log('Data: ' + data + ' length: ' + data.length);
-              io.sockets.emit('event',
-                  config.badges.filter(function(item) { return (item.id == data) ? true : false; })
-              )
+              io.sockets.emit('event', config.badges[data]);
           }
       });
   });
@@ -80,8 +78,8 @@ if(serial) {
 
 }
 
-function badgeNameByID(id) {
-
+function badgeName(id) {
+  return (config.badges[id]) ? config.badges[id] : undefined;
 }
 
 
