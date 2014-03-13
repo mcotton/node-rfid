@@ -60,20 +60,7 @@ if(serial) {
   serial.on('open', function() {
       config.serial.serial_open = true;
       console.log('Opened serial port ', config.serial.PORT);
-      serial.on('data', function(data) {
-          // test if it looks like a badge
-          if((/6A[A-z0-9]*/).test(data)) {
-              data = data.match(/6A[A-z0-9]*/)[0];
-              console.log('Data: ' + data + ' length: ' + data.length);
-              io.sockets.emit('event', {
-                  'badge': data,
-                  'badgeName': badgeName(data),
-                  'status': checkPermission(data) ? 'authorized' : 'rejected',
-                  'timestamp': new Date(),
-                  'door': config.serial.DOOR
-              });
-          }
-      });
+      serial.on('data', dataFromSerial)
   });
 
   // handle serial port closing
@@ -82,6 +69,21 @@ if(serial) {
       console.log('CLosed serial port ', config.serial.PORT);
   })
 
+}
+
+function dataFromSerial(data) {
+    // test if it looks like a badge
+    if((/6A[A-z0-9]*/).test(data)) {
+        data = data.match(/6A[A-z0-9]*/)[0];
+        //console.log('Data: ' + data + ' length: ' + data.length);
+        io.sockets.emit('event', {
+            'badge': data,
+            'badgeName': badgeName(data),
+            'status': checkPermission(data) ? 'authorized' : 'rejected',
+            'timestamp': new Date(),
+            'door': config.serial.DOOR
+        });
+    }
 }
 
 function badgeName(id) {
@@ -98,5 +100,9 @@ function emit_current_state(socket) {
     io.sockets.emit('current_state', { 'doors': config.doors[config.serial.DOOR] });
 };
 
-io.sockets.on('connection', function(socket) { emit_current_state(socket) });
-io.sockets.on('update', function(socket) { emit_current_state(socket) });
+io.sockets.on('connection', function(socket) {
+  emit_current_state(socket)
+  socket.on('test', function(data) {
+    dataFromSerial(data.id)
+  })
+});

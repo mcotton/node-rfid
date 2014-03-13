@@ -1,5 +1,7 @@
 var serialport = require('serialport');
 
+
+// TODO: put this information in doors object and allow multiple doors/readers
 exports.serial = {
   PORT: '/dev/tty.usbserial-AD026AOP',
   DOOR: 'Front Door',
