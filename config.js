@@ -1,7 +1,8 @@
 var serialport = require('serialport');
 
 exports.serial = {
-  PORT: '',
+  PORT: '/dev/tty.usbserial-AD026AOP',
+  DOOR: 'Front Door',
   serial_open: false,
   serial_opts: { 'baudrate':   9600,
                   'parser':     serialport.parsers.readline('\n') }
@@ -22,7 +23,7 @@ exports.badges = {
 exports.doors = {
   'Front Door': {
       'building': 1,
-      'can_open': ['6A003E6686B4', '6A003E61BE8B'],
+      'can_open': ['6A003E6686B4'],
       'state': 'closed'
   }
 };

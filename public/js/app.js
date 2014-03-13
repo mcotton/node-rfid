@@ -18,13 +18,12 @@ socket.on('connecting', function(data) {
 
 socket.on('disconnect', function(data) {
   document.title = document.title.replace(' :)','')
-                                .replace(' :(','')
-                                .replace(' :o','') + ' :('
+                                 .replace(' :(','')
+                                 .replace(' :o','') + ' :('
 });
 
 socket.on('event', function(data) {
-    console.log(data.name)
     var item = document.createElement('li');
-    item.textContent = data.name;
+    item.textContent = [ data.door, data.status, data.badgeName].join(' ');
     document.getElementById('scan_history').appendChild(item);
 });
