@@ -8,6 +8,7 @@ It uses Socket.io to notify the webclient in real-time when a badge is scanned. 
 
  - clone this repo
  -  `npm install`
+ -  edit `config.js` to user your RFID readers and badges
  -  `node app.js`
 
 
