@@ -8,10 +8,14 @@ var routes      = require('./routes');
 var user        = require('./routes/user');
 var http        = require('http');
 var path        = require('path');
+    een         = require('./een.js');
 
 var serialport  = require('serialport');
 
 var config = require('./config.js');
+
+een.login({'username': config.username,
+            'password': config.password});
 
 var serial;
 if(config.serial.PORT) {
@@ -43,8 +47,20 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
-app.get('/', routes.index);
+
 app.get('/users', user.list);
+app.get('/img/after/:c/:ts', routes.after_img);
+app.get('/img/after/:c/', routes.after_img);
+app.get('/img/after/:c', routes.after_img);
+app.get('/img/next/:c/:ts', routes.next_img);
+app.get('/img/next/:c/', routes.next_img);
+app.get('/img/next/:c', routes.next_img);
+app.get('/img/prev/:c/:ts', routes.prev_img);
+app.get('/img/prev/:c/', routes.prev_img);
+app.get('/img/prev/:c', routes.prev_img);
+app.get('/img/:c?/:ts?', routes.img);
+app.get('/img/:c(/)', routes.img);
+app.get('/', routes.index);
 
 var server = http.createServer(app),
     io = require('socket.io').listen(server, { 'log': false });
