@@ -8,6 +8,7 @@ var routes      = require('./routes');
 var user        = require('./routes/user');
 var http        = require('http');
 var path        = require('path');
+var ejs         = require('ejs');
     een         = require('./een.js');
 
 var serialport  = require('serialport');
@@ -29,6 +30,9 @@ var app = express(),
     server = http.createServer(app),
     io = require('socket.io').listen(server, { log: false });
 
+// change default template tags to playnice with underscore template tags
+ejs.open = '{{';
+ejs.close = '}}';
 
 // all environments
 app.set('port', process.env.PORT || 3000);
@@ -97,7 +101,8 @@ function dataFromSerial(data) {
             'badgeName': badgeName(data),
             'status': checkPermission(data) ? 'authorized' : 'rejected',
             'timestamp': new Date(),
-            'door': config.serial.DOOR
+            'door': config.serial.DOOR,
+            'camera': config.serial.CAMERA
         });
     }
 }

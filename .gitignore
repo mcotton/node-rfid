@@ -1,4 +1,4 @@
 node_modules/
 *.swp
 node.out
-
+.DS_Store

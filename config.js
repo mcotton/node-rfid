@@ -1,13 +1,14 @@
 var serialport = require('serialport');
 
+exports.username = 'username'
+exports.password = 'password'
 
 // TODO: put this information in doors object and allow multiple doors/readers
 exports.serial = {
-  username: 'username',
-  password: 'password',
   //PORT: '/dev/tty.usbserial-AD026AOP',
   PORT: '',
   DOOR: 'Front Door',
+  CAMERA: '100bc4a3',
   serial_open: false,
   serial_opts: { 'baudrate':   9600,
                   'parser':     serialport.parsers.readline('\n') }

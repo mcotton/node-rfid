@@ -10,7 +10,23 @@
     <p>Badge Scan History:
         <ul id="scan_history"></ul>
     </p>
+
+    <!-- templates -->
+    <script type="text/template" id="message_template">
+      <div>
+        <span>
+          <img src='/img/prev/<%= data.camera %>' style='height:100px; widht:100px;'>
+        </span>
+        <span>
+          <%= [ data.door, data.status, data.badgeName].join(' ') %>
+        </span>
+      </div>
+    </script>
+
+    <!-- includes -->
+    <script src="/js/jquery-2.1.0.min.js"></script>
+    <script src="/js/underscore-1.6.0.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/js/app.js"></script>
   </body>
-<script src="/socket.io/socket.io.js"></script>
-<script src="/js/app.js"></script>
 </html>
