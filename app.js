@@ -100,7 +100,7 @@ function dataFromSerial(data) {
             'badge': data,
             'badgeName': badgeName(data),
             'status': checkPermission(data) ? 'authorized' : 'rejected',
-            'timestamp': new Date(),
+            'timestamp': een.DtoS(new Date()),
             'door': config.serial.DOOR,
             'camera': config.serial.CAMERA
         });

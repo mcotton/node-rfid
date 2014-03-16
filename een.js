@@ -138,3 +138,41 @@ exports.startPolling = function(opts, success, failure) {
 exports.continuePolling = function(opts, success, failure) {
 
 }
+
+exports.DtoS = function(epoch_time) {
+    var yy, mm, dd, hr, mn, sc, ms, timecode, jstime;
+        jstime = new Date(epoch_time);
+        yy = jstime.getUTCFullYear();
+        mm = this._padTo2Digits(1 + jstime.getUTCMonth());
+        dd = this._padTo2Digits(jstime.getUTCDate());
+        hr = this._padTo2Digits(jstime.getUTCHours());
+        mn = this._padTo2Digits(jstime.getUTCMinutes());
+        sc = this._padTo2Digits(jstime.getUTCSeconds());
+        ms = jstime.getUTCMilliseconds();
+        if (ms < 10) {
+            ms = '00' + ms;
+        } else if (ms < 100) {
+            ms = '0' + ms;
+        }
+        timecode = yy + mm + dd + hr + mn + sc + '.' + ms;
+        return timecode;
+}
+
+exports._padTo2Digits = function(num) {
+    return (((num < 10) ? '0' : '') + num);
+}
+
+exports.StoD = function (timecode) {
+    if(timecode) {
+        var yy, mm, dd, hr, mn, sc, ms, jstime;
+        yy = parseInt(timecode.substring(0, 4), 10);
+        mm = parseInt(timecode.substring(4, 6), 10);
+        dd = parseInt(timecode.substring(6, 8), 10);
+        hr = parseInt(timecode.substring(8, 10), 10);
+        mn = parseInt(timecode.substring(10, 12), 10);
+        sc = parseInt(timecode.substring(12, 14), 10);
+        ms = parseInt(timecode.substring(15), 10);
+        jstime = new Date(Date.UTC(yy, mm - 1, dd, hr, mn, sc, ms));
+        return jstime.valueOf();
+    }
+}

@@ -8,7 +8,7 @@ exports.serial = {
   //PORT: '/dev/tty.usbserial-AD026AOP',
   PORT: '',
   DOOR: 'Front Door',
-  CAMERA: '100bc4a3',
+  CAMERA: '10074f79',
   serial_open: false,
   serial_opts: { 'baudrate':   9600,
                   'parser':     serialport.parsers.readline('\n') }

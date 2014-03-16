@@ -13,14 +13,20 @@
 
     <!-- templates -->
     <script type="text/template" id="message_template">
-      <div>
-        <span>
-          <img src='/img/prev/<%= data.camera %>' style='height:100px; widht:100px;'>
-        </span>
-        <span>
-          <%= [ data.door, data.status, data.badgeName].join(' ') %>
-        </span>
-      </div>
+        <div class="status_updates <%= data.status %>">
+            <div style="display: inline-block;">
+              <img src="/img/prev/<%= data.camera %>/<%= data.timestamp %>">
+            </div>
+            <div style="display: inline-block;">
+                <ul>
+                    <li>Location: <%= data.door %></li>
+                    <li>Status: <%= data.status %></li>
+                    <li>Badge name: <%= data.badgeName %></li>
+                    <li>Time: <%= new Date().toLocaleString() %></li>
+                    <li>Video: <a href="">video link</a></li>
+                </ul>
+            </div>
+        </div>
     </script>
 
     <!-- includes -->
