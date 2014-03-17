@@ -38,7 +38,6 @@ exports.login = function(opts, success, failure) {
     )
 }
 
-// /asset/asset/image.jpeg?c=10074f79;t=20140313234639.472;q=high;a=all
 exports.getImage = function(opts, success, failure) {
     var img_url = [   host,
                     '/asset/asset/image.jpeg?c=', opts.c,
@@ -122,6 +121,28 @@ return  request.get({
             }
         )
 }
+
+exports.getVideo = function(opts, success, failure) {
+    var src_url = [   host,
+                    '/asset/play/video.mp4?c=', opts.c,
+                    ';T=', opts.ts || 'now',
+                    ';e=', opts.e || 'event',
+                    ';q=', opts.a || 'low'
+                    ].join('')
+    console.log('Requesting video: ' + src_url)
+    return  request.get({
+                    url: src_url,
+                    jar: cookie_jar
+                },
+                function (err, res, body) {
+                    if (err) { return err }
+                    if (!err && res.statusCode == 200) {}
+                    return res
+                }
+            )
+
+}
+
 
 exports.getImageList = function(opts, success, failure) {
 

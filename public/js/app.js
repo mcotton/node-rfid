@@ -25,5 +25,5 @@ socket.on('disconnect', function(data) {
 socket.on('event', function(data) {
     var template_src = $('#message_template');
     var html_output = _.template(template_src.html(), { 'data': data })
-    $('#scan_history').append(html_output)
+    $('#scan_history').prepend(html_output)
 });

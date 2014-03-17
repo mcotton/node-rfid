@@ -64,6 +64,8 @@ app.get('/img/prev/:c/', routes.prev_img);
 app.get('/img/prev/:c', routes.prev_img);
 app.get('/img/:c?/:ts?', routes.img);
 app.get('/img/:c(/)', routes.img);
+app.get('/video/:c/:ts', routes.video);
+app.get('/video/:c(/)', routes.video);
 app.get('/', routes.index);
 
 var server = http.createServer(app),

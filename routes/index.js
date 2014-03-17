@@ -31,3 +31,8 @@ exports.prev_img = function(req, future_response) {
         .pipe(future_response);
 
 }
+
+exports.video = function(req, future_response) {
+    een.getVideo({'c': req.params['c'], 'ts': req.params['ts'] || 'now' })
+        .pipe(future_response);
+}
