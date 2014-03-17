@@ -27,4 +27,4 @@ If you are getting annoyed with the beep from the RFID reader, you can simulate 
   
   #### Demo ####
   
-  <object width="420" height="315"><param name="movie" value="//www.youtube.com/v/BkN5POzb_pI?hl=en_US&amp;version=3"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="//www.youtube.com/v/BkN5POzb_pI?hl=en_US&amp;version=3" type="application/x-shockwave-flash" width="420" height="315" allowscriptaccess="always" allowfullscreen="true"></embed></object>
+[demo on youtube](http://www.youtube.com/watch?v=BkN5POzb_pI)
