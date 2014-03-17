@@ -25,3 +25,5 @@ If you are getting annoyed with the beep from the RFID reader, you can simulate 
     socket.emit('test', {'id': '6A003E6686B4'})
     
   
+  #### Demo ####
+  
