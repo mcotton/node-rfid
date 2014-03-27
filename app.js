@@ -25,6 +25,8 @@ if(config.serial.PORT) {
   console.log('WARNING: config.js doesn\'t define a serial port, continuing without it')
 }
 
+var debug = config.debug || false;
+
 var app = express(),
     http = require('http');
     server = http.createServer(app),
@@ -95,17 +97,22 @@ if(serial) {
 
 function dataFromSerial(data) {
     // test if it looks like a badge
-    if((/6A[A-z0-9]*/).test(data)) {
-        data = data.match(/6A[A-z0-9]*/)[0];
-        //console.log('Data: ' + data + ' length: ' + data.length);
-        io.sockets.emit('event', {
+    if((/6[A-z0-9]*/).test(data)) {
+        data = data.match(/6[A-z0-9]*/)[0];
+        if(debug) console.log('Data: ' + data + ' length: ' + data.length);
+        var obj =  {
             'badge': data,
             'badgeName': badgeName(data),
             'status': checkPermission(data) ? 'authorized' : 'rejected',
             'timestamp': een.DtoS(new Date()),
             'door': config.serial.DOOR,
             'camera': config.serial.CAMERA
-        });
+        };
+        // post an annotations to EEN
+        een.addAnnotations(obj);
+        
+        // update the client
+        io.sockets.emit('event', obj); 
     }
 }
 

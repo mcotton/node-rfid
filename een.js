@@ -127,7 +127,8 @@ exports.getVideo = function(opts, success, failure) {
                     '/asset/play/video.mp4?c=', opts.c,
                     ';T=', opts.ts || 'now',
                     ';e=', opts.e || 'event',
-                    ';q=', opts.a || 'low'
+                    ';q=', opts.a || 'low',
+                    ';d=', opts.d || '1'	//download video by default
                     ].join('')
     console.log('Requesting video: ' + src_url)
     return  request.get({
@@ -159,6 +160,11 @@ exports.startPolling = function(opts, success, failure) {
 exports.continuePolling = function(opts, success, failure) {
 
 }
+
+exports.addAnnotations = function(opts, success, failure) {
+
+};
+
 
 exports.DtoS = function(epoch_time) {
     var yy, mm, dd, hr, mn, sc, ms, timecode, jstime;
