@@ -1,4 +1,4 @@
-var socket = io.connect('http://192.168.11.59:3000');
+var socket = io.connect(window.location.host);
 
 socket.on('current_state', function (data) {
    console.log(data);
