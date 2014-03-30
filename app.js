@@ -100,7 +100,7 @@ function dataFromSerial(data) {
     if((/6[A-z0-9]*/).test(data)) {
         data = data.match(/6[A-z0-9]*/)[0];
         if(debug) console.log('Data: ' + data + ' length: ' + data.length);
-        var obj =  {
+        var data_obj =  {
             'badge': data,
             'badgeName': badgeName(data),
             'status': checkPermission(data) ? 'authorized' : 'rejected',
@@ -109,10 +109,15 @@ function dataFromSerial(data) {
             'camera': config.serial.CAMERA
         };
         // post an annotations to EEN
-        een.addAnnotations(obj);
+        een.addAnnotations({
+            'c': config.serial.CAMERA,
+            'ts': data_obj.timestamp,
+            'ns': '2',
+            'body': data_obj
+        });
         
         // update the client
-        io.sockets.emit('event', obj); 
+        io.sockets.emit('event', data_obj); 
     }
 }
 

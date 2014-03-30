@@ -36,7 +36,7 @@ exports.login = function(opts, success, failure) {
             }
         }
     )
-}
+};
 
 exports.getImage = function(opts, success, failure) {
     var img_url = [   host,
@@ -57,7 +57,7 @@ exports.getImage = function(opts, success, failure) {
                 }
             )
 
-}
+};
 
 
 exports.getPrevImage = function(opts, success, failure) {
@@ -79,7 +79,7 @@ exports.getPrevImage = function(opts, success, failure) {
                 }
             )
 
-}
+};
 
 exports.getNextImage = function(opts, success, failure) {
     var img_url = [   host,
@@ -100,17 +100,17 @@ exports.getNextImage = function(opts, success, failure) {
                 }
             )
 
-}
+};
 
 exports.getAfterImage = function(opts, success, failure) {
-var img_url = [   host,
+    var img_url = [   host,
                 '/asset/after/image.jpeg?c=', opts.c,
                 ';t=', opts.ts || 'now',
                 ';q=', opts.q || 'high',
                 ';a=', opts.a || 'all'
                 ].join('')
-console.log('Requesting after image: ' + img_url)
-return  request.get({
+    console.log('Requesting after image: ' + img_url)
+    return  request.get({
                 url: img_url,
                 jar: cookie_jar
             },
@@ -142,27 +142,51 @@ exports.getVideo = function(opts, success, failure) {
                 }
             )
 
-}
+};
 
 
 exports.getImageList = function(opts, success, failure) {
 
-}
+};
 
 exports.getDeviceList = function(opts, success, failure) {
 
-}
+};
 
 exports.startPolling = function(opts, success, failure) {
 
-}
+};
 
 exports.continuePolling = function(opts, success, failure) {
 
-}
+};
 
+// archvm01.eagleeyenetworks.com/annotate?c=10042ffd&ts=20140322000104.000&ns=1
 exports.addAnnotations = function(opts, success, failure) {
-
+        console.log( [  'http:/','/archvm01.eagleeyenetworks.com', '/annotate?c=', opts.c,
+                '&ts=', opts.t, 
+                '&ns=', opts.ns 
+            ].join(''))
+    request.put({
+        url: [  'http:/','/archvm01.eagleeyenetworks.com', '/annotate?c=', opts.c,
+                '&ts=', opts.ts, 
+                '&ns=', opts.ns 
+            ].join(''),
+        jar: cookie_jar,
+        json: true,
+        body: opts.body
+        },
+        function(err, res, body) {
+            console.log('return from /annotate:', res.statusCode)
+            if(err) { return err }
+            if (!err && res.statusCode == 200) {
+                if ( typeof success === 'function') success(res.body);
+            } else {
+                if(typeof failure === 'function') failure(err, res, body);
+            }
+            return body;
+        }
+    )
 };
 
 
@@ -183,11 +207,11 @@ exports.DtoS = function(epoch_time) {
         }
         timecode = yy + mm + dd + hr + mn + sc + '.' + ms;
         return timecode;
-}
+};
 
 exports._padTo2Digits = function(num) {
     return (((num < 10) ? '0' : '') + num);
-}
+};
 
 exports.StoD = function (timecode) {
     if(timecode) {
@@ -202,4 +226,4 @@ exports.StoD = function (timecode) {
         jstime = new Date(Date.UTC(yy, mm - 1, dd, hr, mn, sc, ms));
         return jstime.valueOf();
     }
-}
+};
