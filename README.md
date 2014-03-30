@@ -28,3 +28,6 @@ If you are getting annoyed with the beep from the RFID reader, you can simulate 
 ####Demo####
   
 [demo on youtube](http://www.youtube.com/watch?v=BkN5POzb_pI)
+
+####Getting your raspberry pi setup to run it#####
+[here's a gist](https://gist.github.com/mcotton/9879510)
